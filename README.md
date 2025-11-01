@@ -1,17 +1,17 @@
-## 🧠 **AgeRangeKit**
+## 🧠 **DeclaredAgeRangeKit**
 
 A **hybrid compatibility wrapper** and **mock framework** for Apple’s `DeclaredAgeRange` API.  
 It allows developers to build, test, and run apps that depend on Apple’s age-gating framework — even on **Simulators**, **older iOS versions**, and **VisionOS**, while automatically using the **real system API** when available.  
 
 ---
 
-### ⚙️ **Why AgeRangeKit?**
+### ⚙️ **Why DeclaredAgeRangeKit?**
 
 Apple introduced `DeclaredAgeRange` to enforce age gating under US privacy law.  
 However, it’s **not available on Simulators, older OS versions, or VisionOS**.  
 That makes local testing and CI workflows painful.
 
-✅ **AgeRangeKit fixes that.**
+✅ **DeclaredAgeRangeKit fixes that.**
 - Works in production and development.
 - Fallback mock behavior for unsupported devices.
 - Seamless switch to the Apple API when available.
@@ -36,18 +36,18 @@ That makes local testing and CI workflows painful.
 
 In Xcode:
 ```
-File → Add Packages → https://github.com/muthuselvam/AgeRangeKit.git
+File → Add Packages → https://github.com/muthuselvam/DeclaredAgeRangeKit.git
 ```
 
 Or add this to your `Package.swift`:
 ```swift
-.package(url: "https://github.com/muthuselvam/AgeRangeKit.git", from: "1.0.0")
+.package(url: "https://github.com/muthuselvam/DeclaredAgeRangeKit.git", from: "1.0.0")
 ```
 
 #### ☕️ CocoaPods
 Add to your `Podfile`:
 ```ruby
-pod 'AgeRangeKit', :git => 'https://github.com/muthuselvam/AgeRangeKit.git'
+pod 'DeclaredAgeRangeKit', :git => 'https://github.com/muthuselvam/DeclaredAgeRangeKit.git'
 ```
 
 Then run:
@@ -61,7 +61,7 @@ pod install
 
 #### Import
 ```swift
-import AgeRangeKit
+import DeclaredAgeRangeKit
 ```
 
 #### Request an age range
@@ -90,7 +90,7 @@ let response = try await service.requestAgeRange(ageGates: 13, in: window)
 
 ### 🧰 **SwiftUI Integration**
 
-AgeRangeKit also supports the SwiftUI `@Environment` pattern:
+DeclaredAgeRangeKit also supports the SwiftUI `@Environment` pattern:
 ```swift
 @Environment(\.requestAgeRange) var requestAgeRange
 
@@ -106,7 +106,7 @@ Button("Check Age") {
 
 ### ⚙️ **Mock Settings**
 
-On **Simulator builds**, AgeRangeKit automatically adds two configurable items in the iOS **Settings** app:
+On **Simulator builds**, DeclaredAgeRangeKit automatically adds two configurable items in the iOS **Settings** app:
 - **Date of Birth**
 - **Sharing Preference** (`Always Share`, `Ask First`, `Never`)
 
