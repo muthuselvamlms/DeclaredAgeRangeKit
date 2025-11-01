@@ -242,33 +242,55 @@ import SwiftUI
 
 @available(iOS 26.0, macOS 26.0, *)
 @available(visionOS, unavailable)
-public struct RequestAgeRangeKey: EnvironmentKey {
-    #if canImport(UIKit)
-    public static let defaultValue: (Int, Int?, Int?, UIViewController) async throws -> AgeRangeService.Response = { threshold1, threshold2, threshold3, window in
-        try await AgeRangeService.shared.requestAgeRange(ageGates: threshold1, threshold2, threshold3, in: window)
+public struct RequestAgeRangeAction {
+    
+    /// Requests the declared age range from the system or mock service.
+    ///
+    /// Automatically infers the correct presentation context (UIViewController / NSWindow).
+    public func callAsFunction(ageGates threshold1: Int,
+                               _ threshold2: Int? = nil,
+                               _ threshold3: Int? = nil) async throws -> AgeRangeService.Response {
+        #if canImport(UIKit)
+        guard let rootVC = await UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first?.keyWindow?.rootViewController else {
+            throw AgeRangeService.Error.invalidRequest
+        }
+        return try await AgeRangeService.shared.requestAgeRange(
+            ageGates: threshold1,
+            threshold2,
+            threshold3,
+            in: rootVC
+        )
+        #elseif canImport(AppKit)
+        guard let keyWindow = NSApp.keyWindow else {
+            throw AgeRangeService.Error.invalidRequest
+        }
+        return try await AgeRangeService.shared.requestAgeRange(
+            ageGates: threshold1,
+            threshold2,
+            threshold3,
+            in: keyWindow.contentViewController ?? NSViewController()
+        )
+        #else
+        throw AgeRangeService.Error.notAvailable
+        #endif
     }
-    #elseif canImport(AppKit)
-    public static let defaultValue: (Int, Int?, Int?, NSWindow) async throws -> AgeRangeService.Response = { threshold1, threshold2, threshold3, window in
-        try await AgeRangeService.shared.requestAgeRange(ageGates: threshold1, threshold2, threshold3, in: window)
-    }
-    #endif
+}
+
+@available(iOS 26.0, macOS 26.0, *)
+@available(visionOS, unavailable)
+private struct RequestAgeRangeKey: EnvironmentKey {
+    public static let defaultValue = RequestAgeRangeAction()
 }
 
 @available(iOS 26.0, macOS 26.0, *)
 @available(visionOS, unavailable)
 extension EnvironmentValues {
-    #if canImport(UIKit)
-    public var requestAgeRange: (Int, Int?, Int?, UIViewController) async throws -> AgeRangeService.Response {
+    public var requestAgeRange: RequestAgeRangeAction {
         get { self[RequestAgeRangeKey.self] }
         set { self[RequestAgeRangeKey.self] = newValue }
     }
-    #elseif canImport(AppKit)
-    public var requestAgeRange: (Int, Int?, Int?, NSWindow) async throws -> AgeRangeService.Response {
-        get { self[RequestAgeRangeKey.self] }
-        set { self[RequestAgeRangeKey.self] = newValue }
-    }
-    #endif
 }
 #endif
-
 
