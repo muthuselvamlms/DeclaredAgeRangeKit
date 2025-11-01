@@ -193,11 +193,11 @@ public struct AgeRangeService {
     /// - Returns: An ``AgeRangeService/Response`` or throws an ``Error``.
     ///
     #if canImport(UIKit)
-    public func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int?, _ threshold3: Int?, in viewController: UIViewController) async throws -> AgeRangeService.Response {
+    public func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int? = nil, _ threshold3: Int? = nil, in viewController: UIViewController) async throws -> AgeRangeService.Response {
         return try await provider.requestAgeRange(ageGates: threshold1, threshold2, threshold3, in: viewController)
     }
     #elseif canImport(AppKit)
-    public func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int?, _ threshold3: Int?, in window: NSWindow) async throws -> AgeRangeService.Response {
+    public func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int? = nil, _ threshold3: Int? = nil, in window: NSWindow) async throws -> AgeRangeService.Response {
         return try await provider.requestAgeRange(ageGates: threshold1, threshold2, threshold3, in: window)
     }
     #endif

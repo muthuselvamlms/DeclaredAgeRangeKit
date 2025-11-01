@@ -1,5 +1,7 @@
 ## 🧠 **AgeRangeKit**
 
+Drop-in mock for Apple’s **DeclaredAgeRange** API — works on simulator and older iOS versions.
+
 A **hybrid compatibility wrapper** and **mock framework** for Apple’s `DeclaredAgeRange` API.  
 It allows developers to build, test, and run apps that depend on Apple’s age-gating framework — even on **Simulators**, **older iOS versions**, and **VisionOS**, while automatically using the **real system API** when available.  
 
@@ -25,8 +27,7 @@ That makes local testing and CI workflows painful.
 |-------|--------------|
 | `AgeRangeService` | Public API identical to Apple’s DeclaredAgeRange service. |
 | `AppleAgeRangeProvider` | Delegates to Apple’s native DeclaredAgeRange on supported OS. |
-| `MockAgeRangeProvider` | Customizable fallback with settings-driven DOB & sharing preference. |
-| `SimpleMockAgeRangeProvider` | Developer testing mock — simulates every possible scenario instantly. |
+| `MockAgeRangeProvider` | Developer testing mock — simulates every possible scenario instantly. |
 
 ---
 
@@ -79,9 +80,9 @@ do {
 }
 ```
 
-#### Use SimpleMockAgeRangeProvider for unit testing
+#### Use MockAgeRangeProvider for unit testing
 ```swift
-let mock = SimpleMockAgeRangeProvider(initialScenario: .sharingTeen)
+let mock = MockAgeRangeProvider(initialScenario: .sharingTeen)
 let service = AgeRangeService(mock)
 let response = try await service.requestAgeRange(ageGates: 13, in: window)
 ```
@@ -101,16 +102,6 @@ Button("Check Age") {
     }
 }
 ```
-
----
-
-### ⚙️ **Mock Settings**
-
-On **Simulator builds**, AgeRangeKit automatically adds two configurable items in the iOS **Settings** app:
-- **Date of Birth**
-- **Sharing Preference** (`Always Share`, `Ask First`, `Never`)
-
-Real devices with iOS ≥ 26 automatically use Apple’s native DeclaredAgeRange API.
 
 ---
 
