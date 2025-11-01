@@ -263,17 +263,16 @@ public struct RequestAgeRangeAction {
             in: rootVC
         )
         #elseif canImport(AppKit)
-        guard let keyWindow = NSApp.keyWindow else {
+        guard let keyWindow = await NSApp.keyWindow else {
             throw AgeRangeService.Error.invalidRequest
         }
+        let viewController = keyWindow.contentViewController ?? NSViewController()
         return try await AgeRangeService.shared.requestAgeRange(
             ageGates: threshold1,
             threshold2,
             threshold3,
-            in: keyWindow.contentViewController ?? NSViewController()
+            in: viewController
         )
-        #else
-        throw AgeRangeService.Error.notAvailable
         #endif
     }
 }
