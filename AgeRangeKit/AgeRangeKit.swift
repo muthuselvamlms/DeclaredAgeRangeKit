@@ -244,6 +244,11 @@ import SwiftUI
 @available(visionOS, unavailable)
 public struct RequestAgeRangeAction {
     
+    private var ageRangeService = AgeRangeService.shared
+    public init(ageRangeService: AgeRangeService = .shared) {
+        self.ageRangeService = ageRangeService
+    }
+    
     /// Requests the declared age range from the system or mock service.
     ///
     /// Automatically infers the correct presentation context (UIViewController / NSWindow).
@@ -256,7 +261,7 @@ public struct RequestAgeRangeAction {
             .first?.keyWindow?.rootViewController else {
             throw AgeRangeService.Error.invalidRequest
         }
-        return try await AgeRangeService.shared.requestAgeRange(
+        return try await self.ageRangeService.requestAgeRange(
             ageGates: threshold1,
             threshold2,
             threshold3,
@@ -266,7 +271,7 @@ public struct RequestAgeRangeAction {
         guard let window = await NSApp.keyWindow else {
             throw AgeRangeService.Error.invalidRequest
         }
-        return  try await AgeRangeService.shared.requestAgeRange(
+        return  try await self.ageRangeService.requestAgeRange(
             ageGates: threshold1,
             threshold2,
             threshold3,
