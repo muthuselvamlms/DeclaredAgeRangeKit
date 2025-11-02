@@ -249,10 +249,16 @@ extension AgeRangeService {
                                _ threshold2: Int? = nil,
                                _ threshold3: Int? = nil) async throws -> AgeRangeService.Response {
         #if canImport(UIKit)
-        guard let rootVC = await UIApplication.shared.connectedScenes
-            .compactMap({ $0 as? UIWindowScene })
-            .first?.keyWindow?.rootViewController else {
-            throw AgeRangeService.Error.invalidRequest
+        let rootVC: UIViewController = try await MainActor.run {
+            guard
+                let windowScene = UIApplication.shared.connectedScenes
+                    .compactMap({ $0 as? UIWindowScene })
+                    .first(where: { $0.activationState == .foregroundActive }),
+                let vc = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController
+            else {
+                throw AgeRangeService.Error.invalidRequest
+            }
+            return vc
         }
         return try await self.provider.requestAgeRange(
             ageGates: threshold1,
