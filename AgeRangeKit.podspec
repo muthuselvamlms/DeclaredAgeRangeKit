@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'AgeRangeKit'
-  s.version          = '1.0.0'
+  s.version          = '0.0.6'
   s.summary          = 'A hybrid compatibility wrapper and mock implementation for Apple’s DeclaredAgeRange framework.'
   s.description      = <<-DESC
     AgeRangeKit provides a drop-in replacement for Apple’s DeclaredAgeRange API,
