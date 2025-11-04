@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/muthuselvamlms/AgeRangeKit'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Muthu' => 'muthuselvamlms@gmail.com' }
-  s.source           = { :git => 'https://github.com/muthuselvamlms/AgeRangeKit.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/muthuselvamlms/AgeRangeKit.git', :branch => 'main' }
 
   s.ios.deployment_target = '14.0'
   s.osx.deployment_target = '12.0'
