@@ -21,6 +21,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		16BD18602EBB1721006A5FA6 /* AgeRangeKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = AgeRangeKit.podspec; sourceTree = "<group>"; };
+		16BD18622EBB1732006A5FA6 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		16BD18632EBB1732006A5FA6 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		16BD18642EBB1732006A5FA6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		16BF44DD2EB66261009C19FD /* AgeRangeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AgeRangeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		16BF44E82EB66261009C19FD /* AgeRangeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AgeRangeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -63,6 +67,10 @@
 				16BF44DF2EB66261009C19FD /* AgeRangeKit */,
 				16BF44EC2EB66261009C19FD /* AgeRangeKitTests */,
 				16BF44DE2EB66261009C19FD /* Products */,
+				16BD18602EBB1721006A5FA6 /* AgeRangeKit.podspec */,
+				16BD18622EBB1732006A5FA6 /* LICENSE */,
+				16BD18632EBB1732006A5FA6 /* Package.swift */,
+				16BD18642EBB1732006A5FA6 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
