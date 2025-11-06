@@ -41,11 +41,7 @@ jobs:
           fi
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
 
-          if [ "${{ matrix.platform }}" = "ios" ]; then
-            destination="platform=iOS Simulator,name=iPhone 15,OS=latest"
-          else
-            destination="platform=macOS"
-          fi
+          destination=$(xcodebuild -showdestinations -scheme "$scheme" -"$filetype_parameter" "$file_to_build" | grep "platform=${{ matrix.platform }}" | head -n 1 | awk -F': ' '{print $2}')
 
           xcodebuild clean build analyze \
             -scheme "$scheme" \
@@ -63,11 +59,7 @@ jobs:
           fi
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
 
-          if [ "${{ matrix.platform }}" = "ios" ]; then
-            destination="platform=iOS Simulator,name=iPhone 15,OS=latest"
-          else
-            destination="platform=macOS"
-          fi
+          destination=$(xcodebuild -showdestinations -scheme "$scheme" -"$filetype_parameter" "$file_to_build" | grep "platform=${{ matrix.platform }}" | head -n 1 | awk -F': ' '{print $2}')
 
           xcodebuild test \
             -scheme "$scheme" \
