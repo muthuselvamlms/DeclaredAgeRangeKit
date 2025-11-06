@@ -41,7 +41,17 @@ jobs:
           fi
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
 
-          destination=$(xcodebuild -showdestinations -scheme "$scheme" -"$filetype_parameter" "$file_to_build" | grep "platform=${{ matrix.platform }}" | head -n 1 | awk -F': ' '{print $2}')
+          destination=$(xcodebuild -showdestinations -scheme "$scheme" -"$filetype_parameter" "$file_to_build" | \
+          grep -E "platform=.*${{ matrix.platform }}" | head -n 1 | awk -F': ' '{print $2}')
+
+            # Fallback destinations if auto-detection fails
+            if [ -z "$destination" ]; then
+              if [ "${{ matrix.platform }}" = "ios" ]; then
+                destination="platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device"
+              else
+                destination="platform=macOS"
+              fi
+            fi
 
           xcodebuild clean build analyze \
             -scheme "$scheme" \
@@ -59,7 +69,17 @@ jobs:
           fi
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
 
-          destination=$(xcodebuild -showdestinations -scheme "$scheme" -"$filetype_parameter" "$file_to_build" | grep "platform=${{ matrix.platform }}" | head -n 1 | awk -F': ' '{print $2}')
+          destination=$(xcodebuild -showdestinations -scheme "$scheme" -"$filetype_parameter" "$file_to_build" | \
+            grep -E "platform=.*${{ matrix.platform }}" | head -n 1 | awk -F': ' '{print $2}')
+            
+            # Fallback destinations if auto-detection fails
+            if [ -z "$destination" ]; then
+              if [ "${{ matrix.platform }}" = "ios" ]; then
+                destination="platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device"
+              else
+                destination="platform=macOS"
+              fi
+            fi
 
           xcodebuild test \
             -scheme "$scheme" \
