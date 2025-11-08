@@ -41,14 +41,14 @@ jobs:
           fi
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
 
-            # Fallback destinations if auto-detection fails
-            if [ -z "$destination" ]; then
-              if [ "${{ matrix.platform }}" = "ios" ]; then
-                destination="platform=iOS"
-              else
-                destination="platform=macOS"
-              fi
+          # Fallback destinations if auto-detection fails
+          if [ -z "$destination" ]; then
+            if [ "${{ matrix.platform }}" = "ios" ]; then
+              destination="platform=iOS"
+            else
+              destination="platform=macOS"
             fi
+          fi
 
           xcodebuild clean build analyze \
             -scheme "$scheme" \
@@ -65,20 +65,19 @@ jobs:
             file_to_build="`ls -A | grep -i \\.xcodeproj\$`"
           fi
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
-            
-            # Fallback destinations if auto-detection fails
-            if [ -z "$destination" ]; then
-              if [ "${{ matrix.platform }}" = "ios" ]; then
-                destination="platform=iOS Simulator"
-              else
-                destination="platform=macOS"
-              fi
+          # Fallback destinations if auto-detection fails
+          if [ -z "$destination" ]; then
+            if [ "${{ matrix.platform }}" = "ios" ]; then
+              destination="platform=iOS Simulator"
+            else
+              destination="platform=macOS"
             fi
+          fi
 
           test_target=$(xcodebuild -list -scheme "$scheme" | grep "Tests" | head -n 1 | awk '{$1=$1;print}')
           echo "Detected test target: $test_target"
 
-         echo xcodebuild test \
+          echo xcodebuild test \
             -scheme "$scheme" \
             -"$filetype_parameter" "$file_to_build" \
             -destination "$destination" | xcpretty && exit ${PIPESTATUS[0]}
