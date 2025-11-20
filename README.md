@@ -1,3 +1,11 @@
+<p align="center">
+  <img src="https://img.shields.io/github/stars/muthuselvamlms/AgeRangeKit?style=for-the-badge" />
+  <img src="https://img.shields.io/github/license/muthuselvamlms/AgeRangeKit?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/SPM-Supported-success?style=for-the-badge" />
+  <img src="https://img.shields.io/cocoapods/v/AgeRangeKit?style=for-the-badge" />
+  <img src="https://img.shields.io/github/actions/workflow/status/muthuselvamlms/AgeRangeKit/objective-c-xcode.yml?style=for-the-badge" />
+</p>
 ## 🧠 **AgeRangeKit**
 
 Drop-in mock for Apple’s **DeclaredAgeRange** API — works on simulator and older iOS versions.
